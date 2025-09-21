@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Cafe Finder - Admin</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h2>Admin Panel Cafe Finder</h2>
+  <form id="addCafeForm">
+    <input type="text" id="nama" placeholder="Nama Cafe" required><br>
+    <input type="text" id="lokasi" placeholder="Lokasi" required><br>
+    <input type="text" id="kategori" placeholder="Kategori (pisahkan dengan koma)" required><br>
+    <textarea id="menu" placeholder="Menu (contoh: Latte:25000; Espresso:20000)" required></textarea><br>
+    <button type="submit">Tambah Cafe</button>
+  </form>
+
+  <h3>Daftar Cafe</h3>
+  <div id="cafeList"></div>
+
+  <button id="logoutBtn">Logout</button>
+
+  <script src="{{ url_for('static', filename='admin.js') }}"></script>
+</body>
+</html>

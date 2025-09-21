@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Cafe Finder</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h1>Halo{% if session.username %}, {{ session.username }}{% endif %} 👋</h1>
+  <p>Selamat datang di Cafe Finder!</p>
+
+  <!-- Link login/logout/admin -->
+  <p>
+    {% if session.username %}
+      {% if session.role == 'admin' %}
+        <a href="{{ url_for('admin_page') }}">Admin Panel</a> |
+      {% endif %}
+      <a href="{{ url_for('logout') }}">Logout</a>
+    {% else %}
+      <a href="{{ url_for('login') }}">Login</a>
+    {% endif %}
+  </p>
+
+  <!-- Form filter -->
+  <form method="get" action="/">
+    <input type="text" name="q" placeholder="Cari nama / kategori" value="{{ q }}">
+    <select name="lokasi">
+      <option value="">Semua Lokasi</option>
+      <option value="Surabaya Barat" {% if lokasi=="Surabaya Barat" %}selected{% endif %}>Surabaya Barat</option>
+      <option value="Surabaya Timur" {% if lokasi=="Surabaya Timur" %}selected{% endif %}>Surabaya Timur</option>
+      <option value="Surabaya Tengah" {% if lokasi=="Surabaya Tengah" %}selected{% endif %}>Surabaya Tengah</option>
+    </select>
+    <button type="submit">Filter</button>
+  </form>
+
+  <!-- daftar cafe -->
+  <div class="cafes">
+    {% for cafe in cafes %}
+      <div class="cafe-card">
+        <h3>{{ cafe.nama }}</h3>
+        <p><strong>Lokasi:</strong> {{ cafe.lokasi }}</p>
+        <p><strong>Kategori:</strong> {{ cafe.kategori|join(', ') }}</p>
+        <ul>
+          {% for item in cafe.menu %}
+            <li>{{ item.nama }} – Rp{{ '{:,.0f}'.format(item.harga) }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% else %}
+      <p>Tidak ada cafe ditemukan.</p>
+    {% endfor %}
+  </div>
+</body>
+</html>
