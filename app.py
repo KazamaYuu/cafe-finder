@@ -23,6 +23,10 @@ def save_json(filename, data):
 
 @app.route('/')
 def home():
+    # kalau belum login redirect ke login
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
     cafes = load_json(CAFE_FILE)
     q = request.args.get('q', '').lower()
     lokasi = request.args.get('lokasi', '')
@@ -33,7 +37,7 @@ def home():
     return render_template('index.html', cafes=cafes, q=q, lokasi=lokasi)
 
 
-@app.route('/login', methods=['GET','POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         username = request.form['username']
@@ -41,9 +45,6 @@ def login():
 
         admins = load_json(ADMIN_FILE)
         users = load_json(USER_FILE)
-
-        print("DEBUG admins:", admins)      
-        print("DEBUG input:", username, password)
 
         for a in admins:
             if a['username'] == username and a['password'] == password:
@@ -63,7 +64,7 @@ def login():
     return render_template('login.html')
 
 
-@app.route('/register', methods=['GET','POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         username = request.form['username']
@@ -83,11 +84,12 @@ def register():
 def logout():
     session.clear()
     flash('Logout berhasil')
-    return redirect(url_for('home'))
+    return redirect(url_for('login'))  # logout balik ke login
 
 
-@app.route('/admin', methods=['GET','POST'])
+@app.route('/admin', methods=['GET', 'POST'])
 def admin_page():
+    # hanya admin yang boleh masuk
     if 'username' not in session or session.get('role') != 'admin':
         flash('Hanya admin yang bisa mengakses halaman ini')
         return redirect(url_for('login'))
@@ -112,6 +114,7 @@ def admin_page():
         return redirect(url_for('admin_page'))
 
     return render_template('admin.html', cafes=cafes)
+
 
 @app.route('/admin/delete/<cafe_id>', methods=['POST'])
 def delete_cafe(cafe_id):
