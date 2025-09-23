@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "cafe_id": "1",
+    "user": "yuan",
+    "rating": 5,
+    "text": "cafenya nyaman, makanannya juga enak enak",
+    "timestamp": "2025-09-23T19:30:34.637163"
+  },
+  {
+    "cafe_id": "1",
+    "user": "bebyras",
+    "rating": 4,
+    "text": "good food",
+    "timestamp": "2025-09-23T19:31:01.759102"
+  }
+]

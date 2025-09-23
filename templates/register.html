@@ -16,6 +16,7 @@
         <div class="input-group">
           <span class="input-group-text"><span style="font-size:1.2em;">🔒</span></span>
           <input type="password" id="password" name="password" class="form-control" required autocomplete="new-password">
+          <button type="button" class="btn btn-outline-secondary" onclick="togglePassword('password', this)">👁️</button>
         </div>
       </div>
       <div class="mb-3 text-start">
@@ -23,6 +24,7 @@
         <div class="input-group">
           <span class="input-group-text"><span style="font-size:1.2em;">🔒</span></span>
           <input type="password" id="password2" name="password2" class="form-control" required autocomplete="new-password">
+          <button type="button" class="btn btn-outline-secondary" onclick="togglePassword('password2', this)">👁️</button>
         </div>
       </div>
       <button type="submit" class="btn btn-success w-100 mt-2" style="font-weight:600;">Daftar</button>
@@ -30,8 +32,18 @@
     <div class="text-center mt-3">
       <p class="mb-1">Sudah punya akun?</p>
       <a href="{{ url_for('login') }}" class="btn btn-link">Login di sini</a>
-      <br>
-      <a href="{{ url_for('home') }}" class="btn btn-secondary mt-2">← Kembali</a>
+<script>
+function togglePassword(id, btn) {
+  var inp = document.getElementById(id);
+  if (inp.type === 'password') {
+    inp.type = 'text';
+    btn.innerText = '🙈';
+  } else {
+    inp.type = 'password';
+    btn.innerText = '👁️';
+  }
+}
+</script>
     </div>
   </div>
 </div>

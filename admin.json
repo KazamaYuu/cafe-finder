@@ -1,7 +1,8 @@
 [
   {
     "username": "admin",
-    "password": "admin123"
+    "password": "scrypt:32768:8:1$LFjBuhbkQSwH9tLV$3b07d28374567ce7d7e5ced50fbd3b6ec180586a9be749ec9d8aa9fa868c310e3f7e97490ce4a2df54fb45bf1090dcb5ca0083f38597a05f65b1554fde5056e1",
+    "photo": "admin_profile_PicsArt_05-03-04.15.49.png"
   },
   {
     "username": "wahyu",

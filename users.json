@@ -1,6 +1,13 @@
 [
-    {
-        "username": "sunny",
-        "password": "sunny123"
-    }
+  {
+    "username": "bebyras",
+    "password": "scrypt:32768:8:1$JlCbfAL8B4Fu0dU7$49989dd9d3bb874f83edc2a8fcc148bf70368d855f80eff92364cf12d8e31aaa62cfc5828a03c27ea66192f8d0434ca426ebf227f4a13d9e62ae79d684c16c0b",
+    "role": "user"
+  },
+  {
+    "username": "yuan",
+    "password": "scrypt:32768:8:1$pr6SaG7pMaXi5ng8$e2693f8e388b949a0fe86823608161fe865d1c65e238f85b9f3b0c7d6900f33d9996b1d12ee05dc8bcce2bb887f3cba96890328041d8279ec64ce559762924f9",
+    "role": "user",
+    "photo": "yuan_profile_20200312_231706.jpg"
+  }
 ]

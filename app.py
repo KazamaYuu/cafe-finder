@@ -1,6 +1,3 @@
-
-# ---------- Maps All Cafes ----------
-# (Pindahkan ke bawah setelah deklarasi app)
 from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify
 from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -56,17 +53,25 @@ def load_auth():
     users = {}
     for u in users_list:
         role = u.get('role', 'user')
-        users[u['username']] = {'password': u['password'], 'role': role}
+        users[u['username']] = {
+            'password': u['password'],
+            'role': role,
+            'photo': u.get('photo')
+        }
     for a in admins_list:
         uname = a.get('username')
         pwd = a.get('password', '')
-        users[uname] = {'password': pwd, 'role': 'admin'}
+        users[uname] = {
+            'password': pwd,
+            'role': 'admin',
+            'photo': a.get('photo')
+        }
     return users
 
 def save_new_user(username, raw_password):
     users_list = read_json(USERS_FILE, [])
     pwd_hash = generate_password_hash(raw_password)
-    users_list.append({'username': username, 'password': pwd_hash, 'role': 'user'})
+    users_list.append({'username': username, 'password': pwd_hash, 'role': 'user', 'photo': None})
     write_json(USERS_FILE, users_list)
 
 # ---------- Cafes helpers ----------
@@ -77,13 +82,14 @@ def load_cafes():
             c['id'] = str(c.get('id', str(i)))
         except:
             c['id'] = str(i)
-    c.setdefault('nama', '')
-    c.setdefault('lokasi', '')
-    c.setdefault('kategori', [])
-    c.setdefault('menu', [])
-    c.setdefault('photo', None)
-    c.setdefault('latitude', None)
-    c.setdefault('longitude', None)
+        c.setdefault('nama', '')
+        c.setdefault('lokasi', '')
+        c.setdefault('kategori', [])
+        c.setdefault('menu', [])
+        c.setdefault('photo', None)
+        c.setdefault('latitude', None)
+        c.setdefault('longitude', None)
+        c.setdefault('likes', [])
     return data
 
 def save_cafes(data):
@@ -110,6 +116,45 @@ def recommend(cafe, cafes, top_n=4):
     return [c for s,c in scores[:top_n]]
 
 # ---------- Routes ----------
+@app.route('/edit_profile', methods=['GET', 'POST'])
+def edit_profile():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+    uname = session['username']
+    role = session.get('role', 'user')
+    if role == 'admin':
+        users_list = read_json(ADMIN_FILE, [])
+    else:
+        users_list = read_json(USERS_FILE, [])
+    user = next((u for u in users_list if u['username'] == uname), None)
+    if not user:
+        flash('User tidak ditemukan', 'danger')
+        return redirect(url_for('home'))
+    if request.method == 'POST':
+        # Foto profil
+        file = request.files.get('photo')
+        if file and file.filename != '':
+            if allowed_file(file.filename):
+                filename = secure_filename(f"{uname}_profile_{file.filename}")
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                user['photo'] = filename
+            else:
+                flash('Tipe file tidak diizinkan (jpg/png/gif)', 'warning')
+        # Password baru
+        pw = request.form.get('password', '').strip()
+        if pw:
+            user['password'] = generate_password_hash(pw)
+        # Simpan perubahan
+        for i, u in enumerate(users_list):
+            if u['username'] == uname:
+                users_list[i] = user
+        if role == 'admin':
+            write_json(ADMIN_FILE, users_list)
+        else:
+            write_json(USERS_FILE, users_list)
+        flash('Profil berhasil diupdate', 'success')
+        return redirect(url_for('edit_profile'))
+    return render_template('edit_profile.html', user=user)
 
 @app.route('/')
 def root():
@@ -139,7 +184,8 @@ def home():
             ])
             if q not in hay:
                 ok = False
-        if lokasi and c.get('lokasi') != lokasi:
+        # Ganti filter lokasi ke wilayah
+        if lokasi and c.get('wilayah') != lokasi:
             ok = False
         if kategori:
             cats = [k.lower() for k in c.get('kategori',[])]
@@ -148,7 +194,17 @@ def home():
         if ok:
             filtered.append(c)
     favorites = session.get('favorites', [])
-    return render_template('index.html', cafes=filtered, q=q, lokasi=lokasi, kategori=','.join(kategori_raw), favorites=favorites)
+    # Ambil data user yang sedang login
+    user = None
+    if session.get('username'):
+        uname = session['username']
+        role = session.get('role', 'user')
+        if role == 'admin':
+            user_list = read_json(ADMIN_FILE, [])
+        else:
+            user_list = read_json(USERS_FILE, [])
+        user = next((u for u in user_list if u['username'] == uname), None)
+    return render_template('index.html', cafes=filtered, q=q, lokasi=lokasi, kategori=','.join(kategori_raw), favorites=favorites, user=user)
 
 @app.route('/cafe/<cafe_id>', methods=['GET', 'POST'])
 def cafe_detail(cafe_id):
@@ -163,6 +219,9 @@ def cafe_detail(cafe_id):
     avg_rating = None
     if reviews:
         avg_rating = round(sum([r.get('rating',0) for r in reviews])/len(reviews), 2)
+
+    # Ambil semua user dan admin untuk info reviewer
+    users_list = read_json(USERS_FILE, []) + read_json(ADMIN_FILE, [])
 
     if request.method == 'POST':
         if 'username' not in session:
@@ -189,20 +248,28 @@ def cafe_detail(cafe_id):
         flash('Review berhasil ditambahkan', 'success')
         return redirect(url_for('cafe_detail', cafe_id=cafe_id))
 
-    return render_template('detail.html', cafe=cafe, recs=recs, favorites=favs, reviews=reviews, avg_rating=avg_rating)
+    return render_template('detail.html', cafe=cafe, recs=recs, favorites=favs, reviews=reviews, avg_rating=avg_rating, users_list=users_list)
 
-@app.route('/favorite/toggle/<cafe_id>', methods=['POST'])
-def toggle_favorite(cafe_id):
-    if 'favorites' not in session:
-        session['favorites'] = []
-    favs = session['favorites']
-    if cafe_id in favs:
-        favs.remove(cafe_id)
-        flash('Dihapus dari favorit', 'info')
+@app.route('/like/toggle/<cafe_id>', methods=['POST'])
+def toggle_like(cafe_id):
+    if 'username' not in session:
+        flash('Login untuk like cafe', 'warning')
+        return redirect(url_for('login'))
+    uname = session['username']
+    cafes = load_cafes()
+    cafe = get_cafe(cafes, cafe_id)
+    if not cafe:
+        flash('Cafe tidak ditemukan', 'danger')
+        return redirect(url_for('home'))
+    likes = cafe.get('likes', [])
+    if uname in likes:
+        likes.remove(uname)
+        flash('Like dihapus', 'info')
     else:
-        favs.append(cafe_id)
-        flash('Ditambahkan ke favorit', 'success')
-    session['favorites'] = favs
+        likes.append(uname)
+        flash('Cafe di-like', 'success')
+    cafe['likes'] = likes
+    save_cafes(cafes)
     return redirect(request.referrer or url_for('home'))
 
 # ---------- Auth ----------
@@ -215,7 +282,7 @@ def login():
         user = auth.get(uname)
         if user:
             stored = user.get('password','')
-            if stored.startswith('pbkdf2:') or stored.startswith('sha256:'):
+            if stored.startswith('pbkdf2:') or stored.startswith('sha256:') or stored.startswith('scrypt:'):
                 ok = check_password_hash(stored, pw)
             else:
                 ok = (stored == pw)
@@ -273,6 +340,13 @@ def admin_page():
     cafes = load_cafes()
     print("DEBUG admin cafes:", cafes)
 
+    # Ambil data admin yang sedang login
+    user = None
+    if session.get('username'):
+        uname = session['username']
+        user_list = read_json(ADMIN_FILE, [])
+        user = next((u for u in user_list if u['username'] == uname), None)
+
     if request.method == 'POST':
         name = request.form.get('name','').strip()
         lokasi = request.form.get('lokasi','').strip()
@@ -316,7 +390,7 @@ def admin_page():
         flash('Cafe berhasil ditambahkan', 'success')
         return redirect(url_for('admin_page'))
 
-    return render_template('admin.html', cafes=cafes)
+    return render_template('admin.html', cafes=cafes, user=user)
 
 @app.route('/update/<cafe_id>', methods=['GET','POST'])
 def update_cafe(cafe_id):
@@ -383,6 +457,24 @@ def delete_cafe(cafe_id):
     save_cafes(cafes)
     flash('Cafe berhasil dihapus', 'info')
     return redirect(url_for('admin_page'))
+
+@app.route('/delete_account', methods=['POST'])
+def delete_account():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+    uname = session['username']
+    role = session.get('role', 'user')
+    if role == 'admin':
+        users_list = read_json(ADMIN_FILE, [])
+        users_list = [u for u in users_list if u['username'] != uname]
+        write_json(ADMIN_FILE, users_list)
+    else:
+        users_list = read_json(USERS_FILE, [])
+        users_list = [u for u in users_list if u['username'] != uname]
+        write_json(USERS_FILE, users_list)
+    session.clear()
+    flash('Akun berhasil dihapus', 'info')
+    return redirect(url_for('login'))
 
 # optional: API
 @app.route('/api/cafes')

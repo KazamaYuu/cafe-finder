@@ -1,296 +1,388 @@
 [
   {
     "id": "1",
-    "nama": "Domicile Kitchen & Lounge",
-    "lokasi": "Surabaya Tengah",
-    "kategori": [
-      "Cozy",
-      "Fine Dining"
-    ],
-    "menu": [
-      {
-        "nama": "Pasta Carbonara",
-        "harga": 65000
-      },
-      {
-        "nama": "Latte",
-        "harga": 30000
-      }
-    ],
-    "latitude": -7.269057840611409,
-    "longitude": 112.75008510970139,
-    "photo": "domicile.jpg"
-  },
-  {
-    "id": "2",
-    "nama": "Carpentier Kitchen",
-    "lokasi": "Surabaya Tengah",
-    "kategori": [
-      "Cozy",
-      "Instagrammable"
-    ],
-    "menu": [
-      {
-        "nama": "Chicken Burger",
-        "harga": 55000
-      },
-      {
-        "nama": "Cappuccino",
-        "harga": 28000
-      }
-    ],
-    "latitude": -7.28489043546557,
-    "longitude": 112.73625160674673,
-    "photo": "carpentier.jpg"
-  },
-  {
-    "id": "3",
     "nama": "Historica Coffee & Pastry",
     "lokasi": "Surabaya Tengah",
     "kategori": [
-      "Coffee Shop",
+      "Kopi",
       "Pastry"
     ],
     "menu": [
       {
-        "nama": "Croissant",
-        "harga": 25000
+        "nama": "Cappuccino",
+        "harga": 28000
       },
       {
-        "nama": "Espresso",
+        "nama": "Croissant",
         "harga": 22000
       }
-    ]
+    ],
+    "foto": "historica.jpg",
+    "likes": [
+      "bebyras",
+      "yuan"
+    ],
+    "wilayah": "Surabaya Tengah",
+    "photo": "historica.jpg",
+    "latitude": -7.269073605309724,
+    "longitude": 112.74909747791122
   },
   {
-    "id": "4",
-    "nama": "Monopole Coffee Lab",
+    "id": "2",
+    "nama": "Calibre Coffee Roasters",
     "lokasi": "Surabaya Tengah",
     "kategori": [
-      "Coffee Shop",
-      "Cozy"
+      "Kopi",
+      "Brunch"
+    ],
+    "menu": [
+      {
+        "nama": "Latte",
+        "harga": 32000
+      },
+      {
+        "nama": "Egg Benedict",
+        "harga": 45000
+      }
+    ],
+    "foto": "calibre.jpg",
+    "likes": [],
+    "wilayah": "Surabaya Timur",
+    "photo": "calibre.jpg",
+    "latitude": -7.261026572478881,
+    "longitude": 112.74878757791124
+  },
+  {
+    "id": "3",
+    "nama": "Tanamera Coffee Graha Famili",
+    "lokasi": "Surabaya Barat",
+    "kategori": [
+      "Kopi",
+      "Snack",
+      "Makanan Berat"
     ],
     "menu": [
       {
         "nama": "Cold Brew",
-        "harga": 35000
+        "harga": 45000
       },
       {
-        "nama": "Brownies",
-        "harga": 20000
+        "nama": "Fish n Chips",
+        "harga": 58000
+      },
+      {
+        "nama": "Chicken Burger",
+        "harga": 68000
       }
-    ]
+    ],
+    "foto": "kangen.jpg",
+    "likes": [],
+    "wilayah": "Surabaya Barat",
+    "photo": "tanamera.jpg",
+    "latitude": -7.296582585586057,
+    "longitude": 112.67582620556104
   },
   {
-    "id": "5",
-    "nama": "Excelso Grand City",
+    "id": "4",
+    "nama": "Caturra Espresso",
     "lokasi": "Surabaya Tengah",
     "kategori": [
-      "Cafe",
-      "Family Friendly"
+      "Kopi",
+      "Makanan Barat"
     ],
     "menu": [
       {
-        "nama": "Hazelnut Coffee",
-        "harga": 33000
-      },
-      {
-        "nama": "Club Sandwich",
-        "harga": 50000
-      }
-    ]
-  },
-  {
-    "id": "6",
-    "nama": "Cailano Specialty Coffee & Shao Kao",
-    "lokasi": "Surabaya Timur",
-    "kategori": [
-      "Cozy",
-      "Outdoor"
-    ],
-    "menu": [
-      {
-        "nama": "Matcha Latte",
-        "harga": 32000
-      },
-      {
-        "nama": "Shao Kao",
-        "harga": 45000
-      }
-    ]
-  },
-  {
-    "id": "7",
-    "nama": "Antler Cabin",
-    "lokasi": "Surabaya Timur",
-    "kategori": [
-      "Rustic",
-      "Instagrammable"
-    ],
-    "menu": [
-      {
-        "nama": "Caramel Macchiato",
-        "harga": 35000
-      },
-      {
-        "nama": "Beef Bowl",
-        "harga": 60000
-      }
-    ]
-  },
-  {
-    "id": "8",
-    "nama": "Jokopi Manyar",
-    "lokasi": "Surabaya Timur",
-    "kategori": [
-      "Casual",
-      "Affordable"
-    ],
-    "menu": [
-      {
-        "nama": "Es Kopi Susu",
-        "harga": 18000
-      },
-      {
-        "nama": "Roti Bakar",
-        "harga": 15000
-      }
-    ]
-  },
-  {
-    "id": "9",
-    "nama": "Dewi Sri Cafe & Resto",
-    "lokasi": "Surabaya Timur",
-    "kategori": [
-      "Family Friendly",
-      "Traditional"
-    ],
-    "menu": [
-      {
-        "nama": "Nasi Goreng Jawa",
-        "harga": 30000
-      },
-      {
-        "nama": "Teh Manis",
-        "harga": 10000
-      }
-    ]
-  },
-  {
-    "id": "10",
-    "nama": "BlackBarn Coffee",
-    "lokasi": "Surabaya Timur",
-    "kategori": [
-      "Industrial",
-      "Coffee Shop"
-    ],
-    "menu": [
-      {
-        "nama": "Americano",
+        "nama": "Espresso",
         "harga": 25000
       },
       {
-        "nama": "Cheese Cake",
-        "harga": 35000
-      }
-    ]
-  },
-  {
-    "id": "11",
-    "nama": "Dough & Go",
-    "lokasi": "Surabaya Barat",
-    "kategori": [
-      "Bakery",
-      "Cozy"
-    ],
-    "menu": [
-      {
-        "nama": "Donut",
-        "harga": 15000
-      },
-      {
-        "nama": "Mocha",
-        "harga": 28000
-      }
-    ]
-  },
-  {
-    "id": "12",
-    "nama": "TBRK Rumah Kopi",
-    "lokasi": "Surabaya Barat",
-    "kategori": [
-      "Outdoor",
-      "Coffee Shop"
-    ],
-    "menu": [
-      {
-        "nama": "Es Kopi TBRK",
-        "harga": 20000
-      },
-      {
-        "nama": "Indomie Goreng",
-        "harga": 18000
-      }
-    ]
-  },
-  {
-    "id": "13",
-    "nama": "de Soematra 1910",
-    "lokasi": "Surabaya Barat",
-    "kategori": [
-      "Luxury",
-      "Fine Dining"
-    ],
-    "menu": [
-      {
-        "nama": "Steak Tenderloin",
-        "harga": 150000
-      },
-      {
-        "nama": "Wine Glass",
-        "harga": 80000
-      }
-    ]
-  },
-  {
-    "id": "14",
-    "nama": "The Localist Coffee & Bistro",
-    "lokasi": "Surabaya Barat",
-    "kategori": [
-      "Bistro",
-      "Casual"
-    ],
-    "menu": [
-      {
-        "nama": "Iced Lemon Tea",
-        "harga": 22000
-      },
-      {
-        "nama": "Fish & Chips",
+        "nama": "Chicken Parmigiana",
         "harga": 55000
       }
-    ]
+    ],
+    "foto": "caturra.jpg",
+    "likes": [],
+    "wilayah": "Surabaya Tengah",
+    "photo": "cattura.jpg",
+    "latitude": -7.258045822871898,
+    "longitude": 112.72952663989778
   },
   {
-    "id": "15",
-    "nama": "Cafe Batavia",
+    "id": "5",
+    "nama": "ALECTA",
+    "lokasi": "Surabaya Timur",
+    "kategori": [
+      "Kopi",
+      "Minuman",
+      "Makanan Berat"
+    ],
+    "menu": [
+      {
+        "nama": "Meat Quasadilla with Dabu Dabu",
+        "harga": 47000
+      },
+      {
+        "nama": "Sun Coffee",
+        "harga": 38000
+      }
+    ],
+    "foto": "blackbarn.jpg",
+    "likes": [],
+    "wilayah": "Surabaya Tengah",
+    "photo": "Alecta.jpg",
+    "latitude": -7.290301784232687,
+    "longitude": 112.75003802208906
+  },
+  {
+    "id": "6",
+    "nama": "Redback Specialty Coffee",
     "lokasi": "Surabaya Barat",
     "kategori": [
-      "Vintage",
-      "Cozy"
+      "Kopi",
+      "Sarapan"
+    ],
+    "menu": [
+      {
+        "nama": "Flat White",
+        "harga": 32000
+      },
+      {
+        "nama": "Pancake",
+        "harga": 35000
+      }
+    ],
+    "foto": "redback.jpg",
+    "likes": [],
+    "wilayah": "Surabaya Timur",
+    "photo": "redbacjk.jpg",
+    "latitude": -7.278995870436815,
+    "longitude": 112.6839780460276
+  },
+  {
+    "id": "7",
+    "nama": "Titik Koma Coffee",
+    "lokasi": "Surabaya Barat",
+    "kategori": [
+      "Kopi",
+      "Makanan Ringan"
     ],
     "menu": [
       {
         "nama": "Affogato",
-        "harga": 30000
+        "harga": 27000
       },
       {
-        "nama": "Pisang Goreng Keju",
+        "nama": "French Fries",
         "harga": 25000
       }
     ],
-    "photo": null,
-    "latitude": null,
-    "longitude": null
+    "foto": "titikoma.jpg",
+    "likes": [],
+    "wilayah": "Surabaya Barat",
+    "photo": "tikom.jpg",
+    "latitude": -7.281560701454837,
+    "longitude": 112.65440872179798
+  },
+  {
+    "id": "8",
+    "nama": "Kedai Ciamso",
+    "lokasi": "Surabaya Tengah",
+    "kategori": [
+      "Kopi",
+      "Minuman",
+      "Makanan Berat",
+      "Snack"
+    ],
+    "menu": [
+      {
+        "nama": "Nasi Telur Pontianak",
+        "harga": 26000
+      },
+      {
+        "nama": "Kopi Rhum",
+        "harga": 22000
+      }
+    ],
+    "foto": "kopisoe.jpg",
+    "likes": [],
+    "wilayah": "Surabaya Barat",
+    "photo": "ciamso.jpg",
+    "latitude": -7.263787388006381,
+    "longitude": 112.74251412551651
+  },
+  {
+    "id": "9",
+    "nama": "One Pose Cafe",
+    "lokasi": "Surabaya Barat",
+    "kategori": [
+      "Kopi",
+      "Western Food"
+    ],
+    "menu": [
+      {
+        "nama": "Mocha",
+        "harga": 29000
+      },
+      {
+        "nama": "Spaghetti Carbonara",
+        "harga": 48000
+      }
+    ],
+    "foto": "onepose.jpg",
+    "likes": [],
+    "wilayah": "Surabaya Barat",
+    "photo": "oen_pose.jpg",
+    "latitude": -7.271816944006312,
+    "longitude": 112.68620678340217
+  },
+  {
+    "id": "10",
+    "nama": "Carpentier Kitchen",
+    "lokasi": "Surabaya Tengah",
+    "kategori": [
+      "Kopi",
+      "Fusion"
+    ],
+    "menu": [
+      {
+        "nama": "Manual Brew",
+        "harga": 35000
+      },
+      {
+        "nama": "Rice Bowl",
+        "harga": 40000
+      }
+    ],
+    "foto": "carpentier.jpg",
+    "likes": [],
+    "wilayah": "Surabaya Tengah",
+    "photo": "carpentier.jpg",
+    "latitude": -7.284584900332287,
+    "longitude": 112.7361874984322
+  },
+  {
+    "id": "11",
+    "nama": "deLuna Coffee & Eatery",
+    "lokasi": "Surabaya Timur",
+    "kategori": [
+      "Kopi",
+      "Minuman"
+    ],
+    "menu": [
+      {
+        "nama": "Americano",
+        "harga": 18000
+      },
+      {
+        "nama": "Caramel Milk Tea",
+        "harga": 22000
+      }
+    ],
+    "foto": "kulo.jpg",
+    "likes": [],
+    "wilayah": "Surabaya Timur",
+    "photo": "de_luna.jpg",
+    "latitude": -7.328682411469829,
+    "longitude": 112.79029012883564
+  },
+  {
+    "id": "12",
+    "nama": "Common Grounds Surabaya",
+    "lokasi": "Surabaya Barat",
+    "kategori": [
+      "Kopi",
+      "Brunch"
+    ],
+    "menu": [
+      {
+        "nama": "V60",
+        "harga": 40000
+      },
+      {
+        "nama": "Eggs Benedict",
+        "harga": 60000
+      }
+    ],
+    "foto": "commongrounds.jpg",
+    "likes": [],
+    "wilayah": "Surabaya Barat",
+    "photo": "common_grounds.jpg",
+    "latitude": -7.291170869052115,
+    "longitude": 112.68571647976033
+  },
+  {
+    "id": "13",
+    "nama": "Patdua Coffee & Eatery",
+    "lokasi": "Surabaya Timur",
+    "kategori": [
+      "Kopi",
+      "Makanan Berat"
+    ],
+    "menu": [
+      {
+        "nama": "Kopi Susu Patdua",
+        "harga": 25000
+      },
+      {
+        "nama": "Rice Chicken Salted Egg",
+        "harga": 28000
+      }
+    ],
+    "foto": "kenangan.jpg",
+    "likes": [],
+    "wilayah": "Surabaya Tengah",
+    "photo": "patdua.jpg",
+    "latitude": -7.33113769600038,
+    "longitude": 112.786904097281
+  },
+  {
+    "id": "14",
+    "nama": "Excelso",
+    "lokasi": "Surabaya Timur",
+    "kategori": [
+      "Kopi",
+      "Makanan Barat"
+    ],
+    "menu": [
+      {
+        "nama": "Excelso House Blend",
+        "harga": 35000
+      },
+      {
+        "nama": "Club Sandwich",
+        "harga": 45000
+      }
+    ],
+    "foto": "excelso.jpg",
+    "likes": [],
+    "wilayah": "Surabaya Timur",
+    "photo": "excelso.jpg",
+    "latitude": -7.2731480986130315,
+    "longitude": 112.78150833558219
+  },
+  {
+    "id": "15",
+    "nama": "de Soematra 1910",
+    "lokasi": "Surabaya Timur",
+    "kategori": [
+      "Kopi",
+      "Fine Dining"
+    ],
+    "menu": [
+      {
+        "nama": "Macchiato",
+        "harga": 35000
+      },
+      {
+        "nama": "Steak",
+        "harga": 120000
+      }
+    ],
+    "foto": "desoematra.jpg",
+    "likes": [],
+    "wilayah": "Surabaya Tengah",
+    "photo": "De_Soematra.jpg",
+    "latitude": -7.271269253187265,
+    "longitude": 112.74732817791093
   }
 ]

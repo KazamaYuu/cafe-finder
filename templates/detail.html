@@ -2,6 +2,10 @@
 {% block title %}{{ cafe.nama }} - Cafe Finder{% endblock %}
 {% block content %}
 
+<div class="mb-3">
+  <a href="{{ request.referrer or url_for('home') }}" class="btn btn-secondary">← Kembali</a>
+</div>
+
 <div class="row">
   <div class="col-md-8">
     <div class="card mb-3">
@@ -15,7 +19,7 @@
         {% if cafe.menu %}
           <ul>
             {% for m in cafe.menu %}
-              <li>{{ m.nama }} — Rp{{ '{:,.0f}'.format(m.harga) }}</li>
+              <li>{{ m.nama }} — Rp{{ '{:,.0f}'.format(m.harga|int) }}</li>
             {% endfor %}
           </ul>
         {% else %}
@@ -24,38 +28,44 @@
       </div>
 
     <!-- Favorite Button -->
-    <form action="{{ url_for('toggle_favorite', cafe_id=cafe.id) }}" method="post" class="mb-3">
-      <button class="btn {% if cafe.id in favorites %}btn-danger{% else %}btn-outline-danger{% endif %}">
-        {% if cafe.id in favorites %}Hapus Favorit{% else %}Tambah Favorit{% endif %}
+    <form action="{{ url_for('toggle_like', cafe_id=cafe.id) }}" method="post" class="mb-3">
+      <button class="btn {% if session['username'] in cafe.likes %}btn-danger{% else %}btn-outline-danger{% endif %}">
+        {% if session['username'] in cafe.likes %}Batalkan Like{% else %}Like{% endif %}
       </button>
     </form>
 
-    <!-- Google Maps -->
-    {% if cafe.latitude and cafe.longitude %}
     <div class="card mb-3">
       <div class="card-body">
-        <h5>Lokasi di Google Maps</h5>
-        <iframe width="100%" height="250" frameborder="0" style="border:0" allowfullscreen
-          src="https://www.google.com/maps?q={{ cafe.latitude }},{{ cafe.longitude }}&hl=id&z=16&output=embed">
-        </iframe>
-        <p class="mt-2"><a href="https://www.google.com/maps/search/?api=1&query={{ cafe.latitude }},{{ cafe.longitude }}" target="_blank">Buka di Google Maps</a></p>
-      </div>
-    </div>
-    {% endif %}
-
-    <!-- Review & Rating -->
-    <div class="card mb-3">
-      <div class="card-body">
-        <h5>Review & Rating</h5>
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h5>Review & Rating</h5>
+          <form action="{{ url_for('toggle_like', cafe_id=cafe.id) }}" method="post">
+            <button class="btn btn-sm {% if session['username'] in cafe.likes %}btn-danger{% else %}btn-outline-danger{% endif %}">
+              <span style="font-size:1.2em;">❤</span> {{ cafe.likes|length }}
+            </button>
+          </form>
+        </div>
         {% if avg_rating %}
           <p><strong>Rata-rata rating:</strong> {{ avg_rating }} / 5</p>
         {% endif %}
         {% if reviews %}
           <ul class="list-unstyled">
             {% for r in reviews|reverse %}
-              <li class="mb-2">
-                <div><strong>{{ r.user }}</strong> <span class="badge bg-warning text-dark">{{ r.rating }}★</span> <small class="text-muted">{{ r.timestamp[:16].replace('T',' ') }}</small></div>
-                <div>{{ r.text }}</div>
+              <li class="mb-2 d-flex align-items-start" style="gap:12px;">
+                {% set reviewer = None %}
+                {% for u in users_list %}
+                  {% if u.username == r.user %}
+                    {% set reviewer = u %}
+                  {% endif %}
+                {% endfor %}
+                {% if reviewer and reviewer.photo %}
+                  <img src="{{ url_for('static', filename='uploads/' + reviewer.photo) }}" style="width:40px;height:40px;object-fit:cover;border-radius:50%;">
+                {% else %}
+                  <img src="https://via.placeholder.com/40?text=No+Img" style="width:40px;height:40px;object-fit:cover;border-radius:50%;">
+                {% endif %}
+                <div>
+                  <div><strong>{{ r.user }}</strong> <span class="badge bg-warning text-dark">{{ r.rating }}★</span> <small class="text-muted">{{ r.timestamp[:16].replace('T',' ') }}</small></div>
+                  <div>{{ r.text }}</div>
+                </div>
               </li>
             {% endfor %}
           </ul>
@@ -80,11 +90,10 @@
           </div>
           <button class="btn btn-primary">Kirim Review</button>
         </form>
-        {% else %}
-          <p class="text-muted">Login untuk memberikan review.</p>
         {% endif %}
       </div>
     </div>
+    <!-- Duplikasi form review dihapus, blok sudah ada di atas -->
   </div>
 
   <div class="col-md-4">
@@ -103,8 +112,6 @@
   </div>
 </div>
 
-  <div class="mt-4">
-    <a href="{{ request.referrer or url_for('home') }}" class="btn btn-secondary">← Kembali</a>
-  </div>
+
 
 {% endblock %}

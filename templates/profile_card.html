@@ -1,0 +1,11 @@
+<div class="profile-card mb-3 p-3 border rounded d-flex align-items-center" style="gap:16px;">
+  {% if user.photo %}
+    <img src="{{ url_for('static', filename='uploads/' + user.photo) }}" style="width:64px;height:64px;object-fit:cover;border-radius:50%;">
+  {% else %}
+    <img src="https://via.placeholder.com/64?text=No+Image" style="width:64px;height:64px;object-fit:cover;border-radius:50%;">
+  {% endif %}
+  <div>
+    <div style="font-weight:600;font-size:1.1em;">{{ user.username }}</div>
+    {% if user.role %}<span class="badge bg-info">{{ user.role }}</span>{% endif %}
+  </div>
+</div>
