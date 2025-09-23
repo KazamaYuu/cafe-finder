@@ -1,0 +1,110 @@
+{% extends 'layout.html' %}
+{% block title %}{{ cafe.nama }} - Cafe Finder{% endblock %}
+{% block content %}
+
+<div class="row">
+  <div class="col-md-8">
+    <div class="card mb-3">
+      {% if cafe.photo %}
+        <img src="{{ url_for('static', filename='uploads/' + cafe.photo) }}" class="card-img-top" style="height:350px; object-fit:cover;">
+      {% endif %}
+      <div class="card-body">
+        <h3>{{ cafe.nama }}</h3>
+        <p class="text-muted">{{ cafe.lokasi }} • {{ cafe.kategori|join(', ') }}</p>
+        <h5>Menu</h5>
+        {% if cafe.menu %}
+          <ul>
+            {% for m in cafe.menu %}
+              <li>{{ m.nama }} — Rp{{ '{:,.0f}'.format(m.harga) }}</li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="text-muted">Belum ada menu.</p>
+        {% endif %}
+      </div>
+
+    <!-- Favorite Button -->
+    <form action="{{ url_for('toggle_favorite', cafe_id=cafe.id) }}" method="post" class="mb-3">
+      <button class="btn {% if cafe.id in favorites %}btn-danger{% else %}btn-outline-danger{% endif %}">
+        {% if cafe.id in favorites %}Hapus Favorit{% else %}Tambah Favorit{% endif %}
+      </button>
+    </form>
+
+    <!-- Google Maps -->
+    {% if cafe.latitude and cafe.longitude %}
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5>Lokasi di Google Maps</h5>
+        <iframe width="100%" height="250" frameborder="0" style="border:0" allowfullscreen
+          src="https://www.google.com/maps?q={{ cafe.latitude }},{{ cafe.longitude }}&hl=id&z=16&output=embed">
+        </iframe>
+        <p class="mt-2"><a href="https://www.google.com/maps/search/?api=1&query={{ cafe.latitude }},{{ cafe.longitude }}" target="_blank">Buka di Google Maps</a></p>
+      </div>
+    </div>
+    {% endif %}
+
+    <!-- Review & Rating -->
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5>Review & Rating</h5>
+        {% if avg_rating %}
+          <p><strong>Rata-rata rating:</strong> {{ avg_rating }} / 5</p>
+        {% endif %}
+        {% if reviews %}
+          <ul class="list-unstyled">
+            {% for r in reviews|reverse %}
+              <li class="mb-2">
+                <div><strong>{{ r.user }}</strong> <span class="badge bg-warning text-dark">{{ r.rating }}★</span> <small class="text-muted">{{ r.timestamp[:16].replace('T',' ') }}</small></div>
+                <div>{{ r.text }}</div>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <p class="text-muted">Belum ada review.</p>
+        {% endif %}
+
+        {% if session['username'] %}
+        <form action="" method="post" class="mt-3">
+          <div class="mb-2">
+            <label for="rating" class="form-label">Rating:</label>
+            <select name="rating" id="rating" class="form-select" required>
+              <option value="">Pilih rating</option>
+              {% for i in range(1,6) %}
+                <option value="{{ i }}">{{ i }}★</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="mb-2">
+            <label for="review" class="form-label">Review:</label>
+            <textarea name="review" id="review" class="form-control" rows="2" required></textarea>
+          </div>
+          <button class="btn btn-primary">Kirim Review</button>
+        </form>
+        {% else %}
+          <p class="text-muted">Login untuk memberikan review.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <h5>Rekomendasi Mirip</h5>
+    {% for r in recs %}
+      <div class="card mb-2">
+        <div class="card-body">
+          <h6 class="card-title">{{ r.nama }}</h6>
+          <p class="small text-muted">{{ r.lokasi }} • {{ r.kategori|join(', ') }}</p>
+          <a href="{{ url_for('cafe_detail', cafe_id=r.id) }}" class="btn btn-sm btn-outline-primary">Lihat</a>
+        </div>
+      </div>
+    {% else %}
+      <p class="text-muted">Tidak ada rekomendasi.</p>
+    {% endfor %}
+  </div>
+</div>
+
+  <div class="mt-4">
+    <a href="{{ request.referrer or url_for('home') }}" class="btn btn-secondary">← Kembali</a>
+  </div>
+
+{% endblock %}

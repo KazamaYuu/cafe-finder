@@ -1,0 +1,91 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<div class="container mt-3">
+  <h2 class="mb-3">Update Café</h2>
+
+  <form action="{{ url_for('update_cafe', cafe_id=cafe.id) }}" method="POST" enctype="multipart/form-data">
+    <div class="mb-2">
+      <label>Nama Café</label>
+      <input type="text" name="name" class="form-control" value="{{ cafe.nama }}" required>
+    </div>
+    <div class="mb-2">
+      <label>Lokasi</label>
+      <select name="lokasi" class="form-select" required>
+        <option value="Surabaya Barat" {% if cafe.lokasi=='Surabaya Barat' %}selected{% endif %}>Surabaya Barat</option>
+        <option value="Surabaya Timur" {% if cafe.lokasi=='Surabaya Timur' %}selected{% endif %}>Surabaya Timur</option>
+        <option value="Surabaya Tengah" {% if cafe.lokasi=='Surabaya Tengah' %}selected{% endif %}>Surabaya Tengah</option>
+      </select>
+    </div>
+
+    <div class="mb-2">
+      <label>Kategori (pisah dengan koma)</label>
+      <input type="text" name="kategori" class="form-control" value="{{ cafe.kategori|join(', ') }}">
+    </div>
+
+    <div class="row mb-2">
+      <div class="col">
+        <label>Latitude (Google Maps)</label>
+        <input type="text" name="latitude" class="form-control" value="{{ cafe.latitude if cafe.latitude }}" placeholder="-7.2575">
+      </div>
+      <div class="col">
+        <label>Longitude (Google Maps)</label>
+        <input type="text" name="longitude" class="form-control" value="{{ cafe.longitude if cafe.longitude }}" placeholder="112.7521">
+      </div>
+    </div>
+
+    <div class="mb-3">
+      {% if cafe.photo %}
+        <p>Foto saat ini:</p>
+        <img src="{{ url_for('static', filename='uploads/' ~ cafe.photo) }}" class="img-thumbnail mb-2" width="200">
+      {% endif %}
+      <label>Upload Foto Baru</label>
+      <input type="file" name="photo" class="form-control">
+    </div>
+
+    <div class="mb-3">
+      <label>Menu (nama + harga)</label>
+      <div id="menu-rows">
+        {% for m in cafe.menu %}
+        <div class="row mb-2 menu-row">
+          <div class="col"><input class="form-control" name="menu_name[]" value="{{ m.nama }}"></div>
+          <div class="col" style="max-width:150px;"><input class="form-control" name="menu_price[]" value="{{ m.harga }}"></div>
+          <div class="col-auto"><button type="button" class="btn btn-danger btn-remove-row">-</button></div>
+        </div>
+        {% endfor %}
+        {% if cafe.menu|length == 0 %}
+        <div class="row mb-2 menu-row">
+          <div class="col"><input class="form-control" name="menu_name[]" placeholder="Nama menu"></div>
+          <div class="col" style="max-width:150px;"><input class="form-control" name="menu_price[]" placeholder="Harga"></div>
+          <div class="col-auto"><button type="button" class="btn btn-danger btn-remove-row">-</button></div>
+        </div>
+        {% endif %}
+      </div>
+      <button id="add-menu" type="button" class="btn btn-sm btn-outline-success mt-2">+ Tambah Menu</button>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Simpan Perubahan</button>
+    <a href="{{ url_for('admin_page') }}" class="btn btn-secondary">Batal</a>
+  </form>
+</div>
+
+<script>
+document.addEventListener('click', function(e){
+  if(e.target && e.target.id === 'add-menu'){
+    let container = document.getElementById('menu-rows');
+    let div = document.createElement('div');
+    div.className = 'row mb-2 menu-row';
+    div.innerHTML = '<div class="col"><input class="form-control" name="menu_name[]" placeholder="Nama menu"></div><div class="col" style="max-width:150px;"><input class="form-control" name="menu_price[]" placeholder="Harga (angka)"></div><div class="col-auto"><button type="button" class="btn btn-danger btn-remove-row">-</button></div>';
+    container.appendChild(div);
+  }
+  if(e.target && e.target.classList.contains('btn-remove-row')){
+    let row = e.target.closest('.menu-row');
+    if(row) row.remove();
+  }
+});
+</script>
+
+<div class="mt-4">
+  <a href="{{ url_for('admin_page') }}" class="btn btn-secondary">← Kembali</a>
+</div>
+{% endblock %}
