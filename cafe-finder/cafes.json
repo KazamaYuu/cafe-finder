@@ -1,0 +1,154 @@
+[
+  {
+    "id": "1",
+    "nama": "Domicile Kitchen & Lounge",
+    "lokasi": "Surabaya Tengah",
+    "kategori": ["Cozy", "Fine Dining"],
+    "menu": [
+      {"nama": "Pasta Carbonara", "harga": 65000},
+      {"nama": "Latte", "harga": 30000}
+    ]
+  },
+  {
+    "id": "2",
+    "nama": "Carpentier Kitchen",
+    "lokasi": "Surabaya Tengah",
+    "kategori": ["Cozy", "Instagrammable"],
+    "menu": [
+      {"nama": "Chicken Burger", "harga": 55000},
+      {"nama": "Cappuccino", "harga": 28000}
+    ]
+  },
+  {
+    "id": "3",
+    "nama": "Historica Coffee & Pastry",
+    "lokasi": "Surabaya Tengah",
+    "kategori": ["Coffee Shop", "Pastry"],
+    "menu": [
+      {"nama": "Croissant", "harga": 25000},
+      {"nama": "Espresso", "harga": 22000}
+    ]
+  },
+  {
+    "id": "4",
+    "nama": "Monopole Coffee Lab",
+    "lokasi": "Surabaya Tengah",
+    "kategori": ["Coffee Shop", "Cozy"],
+    "menu": [
+      {"nama": "Cold Brew", "harga": 35000},
+      {"nama": "Brownies", "harga": 20000}
+    ]
+  },
+  {
+    "id": "5",
+    "nama": "Excelso Grand City",
+    "lokasi": "Surabaya Tengah",
+    "kategori": ["Cafe", "Family Friendly"],
+    "menu": [
+      {"nama": "Hazelnut Coffee", "harga": 33000},
+      {"nama": "Club Sandwich", "harga": 50000}
+    ]
+  },
+
+  {
+    "id": "6",
+    "nama": "Cailano Specialty Coffee & Shao Kao",
+    "lokasi": "Surabaya Timur",
+    "kategori": ["Cozy", "Outdoor"],
+    "menu": [
+      {"nama": "Matcha Latte", "harga": 32000},
+      {"nama": "Shao Kao", "harga": 45000}
+    ]
+  },
+  {
+    "id": "7",
+    "nama": "Antler Cabin",
+    "lokasi": "Surabaya Timur",
+    "kategori": ["Rustic", "Instagrammable"],
+    "menu": [
+      {"nama": "Caramel Macchiato", "harga": 35000},
+      {"nama": "Beef Bowl", "harga": 60000}
+    ]
+  },
+  {
+    "id": "8",
+    "nama": "Jokopi Manyar",
+    "lokasi": "Surabaya Timur",
+    "kategori": ["Casual", "Affordable"],
+    "menu": [
+      {"nama": "Es Kopi Susu", "harga": 18000},
+      {"nama": "Roti Bakar", "harga": 15000}
+    ]
+  },
+  {
+    "id": "9",
+    "nama": "Dewi Sri Cafe & Resto",
+    "lokasi": "Surabaya Timur",
+    "kategori": ["Family Friendly", "Traditional"],
+    "menu": [
+      {"nama": "Nasi Goreng Jawa", "harga": 30000},
+      {"nama": "Teh Manis", "harga": 10000}
+    ]
+  },
+  {
+    "id": "10",
+    "nama": "BlackBarn Coffee",
+    "lokasi": "Surabaya Timur",
+    "kategori": ["Industrial", "Coffee Shop"],
+    "menu": [
+      {"nama": "Americano", "harga": 25000},
+      {"nama": "Cheese Cake", "harga": 35000}
+    ]
+  },
+
+  {
+    "id": "11",
+    "nama": "Dough & Go",
+    "lokasi": "Surabaya Barat",
+    "kategori": ["Bakery", "Cozy"],
+    "menu": [
+      {"nama": "Donut", "harga": 15000},
+      {"nama": "Mocha", "harga": 28000}
+    ]
+  },
+  {
+    "id": "12",
+    "nama": "TBRK Rumah Kopi",
+    "lokasi": "Surabaya Barat",
+    "kategori": ["Outdoor", "Coffee Shop"],
+    "menu": [
+      {"nama": "Es Kopi TBRK", "harga": 20000},
+      {"nama": "Indomie Goreng", "harga": 18000}
+    ]
+  },
+  {
+    "id": "13",
+    "nama": "de Soematra 1910",
+    "lokasi": "Surabaya Barat",
+    "kategori": ["Luxury", "Fine Dining"],
+    "menu": [
+      {"nama": "Steak Tenderloin", "harga": 150000},
+      {"nama": "Wine Glass", "harga": 80000}
+    ]
+  },
+  {
+    "id": "14",
+    "nama": "The Localist Coffee & Bistro",
+    "lokasi": "Surabaya Barat",
+    "kategori": ["Bistro", "Casual"],
+    "menu": [
+      {"nama": "Iced Lemon Tea", "harga": 22000},
+      {"nama": "Fish & Chips", "harga": 55000}
+    ]
+  },
+  {
+    "id": "15",
+    "nama": "Cafe Batavia",
+    "lokasi": "Surabaya Barat",
+    "kategori": ["Vintage", "Cozy"],
+    "menu": [
+      {"nama": "Affogato", "harga": 30000},
+      {"nama": "Pisang Goreng Keju", "harga": 25000}
+    ]
+  }
+]
