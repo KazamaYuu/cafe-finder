@@ -1,0 +1,100 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="container">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Panel Admin</h2>
+    <a href="{{ url_for('logout') }}" class="btn btn-danger btn-sm" title="Logout">⎋</a>
+  </div>
+
+  <!-- Form Tambah Cafe -->
+  <form action="{{ url_for('admin_page') }}" method="post" enctype="multipart/form-data" class="mb-4">
+    <div class="row g-2">
+      <div class="col-md-4">
+        <input type="text" name="name" class="form-control" placeholder="Nama Cafe" required>
+      </div>
+      <div class="col-md-3">
+        <select name="lokasi" class="form-select" required>
+          <option value="">Pilih Lokasi</option>
+          <option>Surabaya Barat</option>
+          <option>Surabaya Timur</option>
+          <option>Surabaya Tengah</option>
+        </select>
+      </div>
+      <div class="col-md-5">
+        <input type="text" name="kategori" class="form-control" placeholder="Kategori (pisah koma)">
+      </div>
+      <div class="col-12 mt-2">
+        <label class="form-label">Menu</label>
+        <div id="menu-rows">
+          <div class="row mb-2 menu-row">
+            <div class="col"><input class="form-control" name="menu_name[]" placeholder="Nama menu"></div>
+            <div class="col" style="max-width:150px;"><input class="form-control" name="menu_price[]" placeholder="Harga"></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 mt-2">
+        <input type="file" name="photo" class="form-control">
+      </div>
+      <div class="col-md-6 mt-2">
+        <button class="btn btn-primary w-100" type="submit">Tambah Cafe</button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Daftar Cafe -->
+  <h3>Daftar Cafe</h3>
+  <p class="text-muted">Total: {{ cafes|length }} cafe(s)</p>
+  <table class="table table-striped align-middle">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nama</th>
+        <th>Lokasi</th>
+        <th>Kategori</th>
+        <th>Menu</th>
+        <th>Foto</th>
+        <th>Aksi</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for c in cafes %}
+      <tr>
+        <td>{{ c['id'] }}</td>
+        <td>{{ c['nama'] or '-' }}</td>
+        <td>{{ c['lokasi'] or '-' }}</td>
+        <td>{{ c['kategori']|join(', ') if c['kategori'] else '-' }}</td>
+        <td>
+          {% if c['menu'] %}
+            <ul class="mb-0">
+              {% for m in c['menu'] %}
+              <li>{{ m['nama'] }} - Rp{{ m['harga'] }}</li>
+              {% endfor %}
+            </ul>
+          {% else %}
+            <span class="text-muted">-</span>
+          {% endif %}
+        </td>
+        <td>
+          {% if c.get('photo') %}
+            <img src="{{ url_for('static', filename='uploads/' ~ c['photo']) }}" width="80">
+          {% else %}
+            <span class="text-muted">No Image</span>
+          {% endif %}
+        </td>
+        <td>
+          <!-- Tombol Update -->
+          <a href="{{ url_for('update_cafe', cafe_id=c['id']) }}" class="btn btn-sm btn-warning">Edit</a>
+          
+          <!-- Tombol Delete -->
+          <form action="{{ url_for('delete_cafe', cafe_id=c['id']) }}" method="post" style="display:inline;">
+            <button class="btn btn-sm btn-danger" onclick="return confirm('Hapus cafe ini?')">Hapus</button>
+          </form>
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="7" class="text-center text-muted">Belum ada data cafe</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container mt-5" style="max-width: 400px;">
+  <h2 class="mb-4 text-center">Login</h2>
+
+  <form method="post" action="{{ url_for('login') }}">
+    <div class="mb-3">
+      <label for="username" class="form-label">Username</label>
+      <input type="text" id="username" name="username" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" id="password" name="password" class="form-control" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100">Login</button>
+  </form>
+
+  <div class="text-center mt-3">
+    <p class="mb-1">Belum punya akun?</p>
+    <a href="{{ url_for('register') }}" class="btn btn-link">Daftar di sini</a>
+  </div>
+</div>
+{% endblock %}
